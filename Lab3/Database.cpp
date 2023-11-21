@@ -40,6 +40,21 @@ namespace Records {
 		theEmployee.setEmployeeCode(mEmployeeCode);
 		theEmployee.hire();
 
+		switch (positionCode)
+		{
+			case Records::Librarian:
+				theEmployee.setSalary(100);
+				break;
+			case Records::Cataloger:
+				theEmployee.setSalary(200);
+				break;
+			case Records::Archivist:
+				theEmployee.setSalary(300);
+				break;
+			default:
+				break;
+		}
+
 		return theEmployee;
 	}
 	Employee& Database::getEmployee(int inEmployeeNumber)

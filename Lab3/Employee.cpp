@@ -62,6 +62,7 @@ namespace Records {
 		cout << "Sex: " << (sex == Sex::Male ? "Male" : "Female") << endl;
 		cout << "Address: " << address << endl;
 		cout << "Passport Number: " << passportNumber << endl;
+		cout << "Salary: " << mSalary << endl;
 		cout << "Position: ";
 
 		switch (positionCode) {
