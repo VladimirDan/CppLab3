@@ -2,8 +2,11 @@
 #include <stdexcept>
 #include <string>
 #include "Database.h"
+
+
 using namespace std;
 using namespace Records;
+
 int displayMenu();
 void doHire(Database& inDB);
 void doFire(Database& inDB);
@@ -12,7 +15,7 @@ void doDemote(Database& inDB);
 
 int main(int argc, char** argv)
 {
-	Database employeeDB;
+	Database employeeDB = *(new Database(*(new FileManager())));
 
 
 

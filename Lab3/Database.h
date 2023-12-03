@@ -1,6 +1,7 @@
 #include <iostream>
 #include "Employee.h"
 #include <string>
+#include "FileManager.h"
 
 using namespace std;
 
@@ -10,7 +11,7 @@ namespace Records {
 	class Database
 	{
 	public:
-		Database();
+		Database(FileManager _fileManager);
 		~Database();
 		Employee& addEmployee(
 			string firstName,
@@ -28,9 +29,16 @@ namespace Records {
 		void displayCurrent();
 		void displayFormer();
 		void displayAdult();
+
+		void load();
+		void save() const;
+
+
 	protected:
-		Employee mEmployees[kMaxEmployees];
+		std::vector<Employee> mEmployees;
 		int mNextSlot;
 		int mNextEmployeeNumber;
+
+		FileManager fileManager;
 	};
 }

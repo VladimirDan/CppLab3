@@ -1,7 +1,9 @@
 #include <iostream>
 #include <string>
+#include <nlohmann/json.hpp>
 
 using namespace std;
+using json = nlohmann::json;
 
 namespace Records {
 	const int kDefaultStartingSalary = 30000;
@@ -45,8 +47,9 @@ namespace Records {
 		void setSalary(int inNewSalary);
 		int getSalary();
 		bool getIsHired();
+		void setIsHired(bool value);
 		std::string getFathersName();
-		void setFathersName(std::string& name);
+		void setFathersName(string name);
 		int getEmployeeCode();
 		void setEmployeeCode(int code);
 		int getAge();
@@ -54,13 +57,16 @@ namespace Records {
 		Sex getSex();
 		void setSex(Sex employeeSex);
 		std::string getAddress();
-		void setAddress(std::string& employeeAddress);
+		void setAddress(string employeeAddress);
 		int getPassportNumber();
 		void setPassportNumber(int number);
 		PositionCode getPositionCode();
 		void setPositionCode(PositionCode code);
 
 		bool isAdult();
+
+		void to_json(json& j) const;
+		void from_json(const json& j);
 
 	private:
 		std::string mFirstName;

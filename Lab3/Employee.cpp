@@ -119,11 +119,15 @@ namespace Records {
 		return fHired;
 	}
 
+	void Employee::setIsHired(bool value) {
+		fHired = value;
+	}
+
 	std::string Employee::getFathersName() {
 		return fathersName;
 	}
 
-	void Employee::setFathersName(std::string& name) {
+	void Employee::setFathersName(string name) {
 		fathersName = name;
 	}
 
@@ -155,7 +159,7 @@ namespace Records {
 		return address;
 	}
 
-	void Employee::setAddress(std::string& employeeAddress) {
+	void Employee::setAddress(string employeeAddress) {
 		address = employeeAddress;
 	}
 
@@ -177,5 +181,38 @@ namespace Records {
 
 	bool Employee::isAdult() {
 		return age >= 18;
+	}
+
+	void Employee::to_json(json& j) const {
+		j = {
+			{"mFirstName", mFirstName},
+			{"mLastName", mLastName},
+			{"fathersName", fathersName},
+			{"mEmployeeCode", mEmployeeCode},
+			{"age", age},
+			{"sex", sex},
+			{"address", address},
+			{"passportNumber", passportNumber},
+			{"positionCode", positionCode},
+			{"mEmployeeNumber", mEmployeeNumber},
+			{"mSalary", mSalary},
+			{"fHired", fHired}
+		};
+	}
+
+	
+	void Employee::from_json(const json& j) {
+		mFirstName = j.at("mFirstName").get<std::string>();
+		mLastName = j.at("mLastName").get<std::string>();
+		fathersName = j.at("fathersName").get<std::string>();
+		mEmployeeCode = j.at("mEmployeeCode").get<int>();
+		age = j.at("age").get<int>();
+		sex = j.at("sex").get<Sex>();
+		address = j.at("address").get<std::string>();
+		passportNumber = j.at("passportNumber").get<int>();
+		positionCode = j.at("positionCode").get<PositionCode>();
+		mEmployeeNumber = j.at("mEmployeeNumber").get<int>();
+		mSalary = j.at("mSalary").get<int>();
+		fHired = j.at("fHired").get<bool>();
 	}
 }

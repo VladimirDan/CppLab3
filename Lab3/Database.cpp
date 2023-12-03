@@ -2,12 +2,15 @@
 #include <stdexcept>
 #include <string>
 #include "Database.h"
+
 using namespace std;
 namespace Records {
-	Database::Database()
+	Database::Database(FileManager _fileManager)
 	{
 		mNextSlot = 0;
 		mNextEmployeeNumber = kFirstEmployeeNumber;
+		fileManager = _fileManager;
+		load();
 	}
 	Database::~Database()
 	{
@@ -54,6 +57,8 @@ namespace Records {
 			default:
 				break;
 		}
+
+		save();
 
 		return theEmployee;
 	}
@@ -108,6 +113,26 @@ namespace Records {
 			if (mEmployees[i].isAdult()) {
 				mEmployees[i].display();
 			}
+		}
+	}
+
+	void Database::load() {
+		try {
+			mEmployees = fileManager.Read("employeeData.json");
+			mNextSlot = mEmployees.size();
+		}
+		catch (const std::exception& e) {
+			cerr << "Error loading data from file: " << e.what() << endl;
+		}
+	}
+
+	void Database::save() const {
+		try {
+			string filePath = "employeeData.json";
+			fileManager.Write(filePath, mEmployees);
+		}
+		catch (const std::exception& e) {
+			cerr << "Error saving data to file: " << e.what() << endl;
 		}
 	}
 }
