@@ -1,3 +1,6 @@
+#pragma once
+
+
 #include <iostream>
 #include <string>
 #include <nlohmann/json.hpp>
@@ -65,8 +68,13 @@ namespace Records {
 
 		bool isAdult();
 
+		Sex convertStringToSex(const std::string& sexString);
+		PositionCode convertStringToPositionCode(const std::string& positionCodeString);
+		string convertSexToString(Sex sex) const;
+		string convertPositionCodeToString(PositionCode positionCode) const;
+
 		void to_json(json& j) const;
-		void from_json(const json& j);
+		void from_json(const json& j, Employee& emp);
 
 	private:
 		std::string mFirstName;

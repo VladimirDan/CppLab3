@@ -19,8 +19,8 @@ namespace Records {
         file >> jsonData;
 
         for (const auto& employeeData : jsonData) {
-            Employee emp = *(new Employee());
-            emp.from_json(employeeData);
+            Employee emp;
+            emp.from_json(employeeData, emp);
             result.push_back(emp);
         }
 

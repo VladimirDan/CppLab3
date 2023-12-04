@@ -31,7 +31,8 @@ namespace Records {
 			throw exception();
 		}
 
-		Employee& theEmployee = mEmployees[mNextSlot++];
+		Employee theEmployee;
+		
 		theEmployee.setFirstName(firstName);
 		theEmployee.setLastName(lastName);
 		theEmployee.setFathersName(fathersName);
@@ -58,6 +59,9 @@ namespace Records {
 				break;
 		}
 
+		mEmployees.push_back(theEmployee);
+		mNextSlot++;
+		
 		save();
 
 		return theEmployee;
@@ -118,7 +122,7 @@ namespace Records {
 
 	void Database::load() {
 		try {
-			mEmployees = fileManager.Read("employeeData.json");
+			mEmployees = fileManager.Read("C:/Users/user/Dropbox/Мой ПК (WIN-9HVOQM4TUNA)/Desktop/CppLab3/Lab3/employeeData.json");
 			mNextSlot = mEmployees.size();
 		}
 		catch (const std::exception& e) {
@@ -128,7 +132,7 @@ namespace Records {
 
 	void Database::save() const {
 		try {
-			string filePath = "employeeData.json";
+			string filePath = "C:/Users/user/Dropbox/Мой ПК (WIN-9HVOQM4TUNA)/Desktop/CppLab3/Lab3/employeeData.json";
 			fileManager.Write(filePath, mEmployees);
 		}
 		catch (const std::exception& e) {

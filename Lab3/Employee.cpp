@@ -183,6 +183,50 @@ namespace Records {
 		return age >= 18;
 	}
 
+	Sex Employee::convertStringToSex(const std::string& sexString) {
+		if (sexString == "Male") {
+			return Sex::Male;
+		}
+		else if (sexString == "Female") {
+			return Sex::Female;
+		}
+		else {
+			throw std::invalid_argument("Invalid value for Sex");
+		}
+	}
+
+	PositionCode Employee::convertStringToPositionCode(const std::string& positionCodeString) {
+		if (positionCodeString == "Librarian") {
+			return PositionCode::Librarian;
+		}
+		else if (positionCodeString == "Cataloger") {
+			return PositionCode::Cataloger;
+		}
+		else if (positionCodeString == "Archivist") {
+			return PositionCode::Archivist;
+		}
+		else {
+			throw std::invalid_argument("Invalid value for PositionCode");
+		}
+	}
+
+	std::string Employee::convertSexToString(Sex sex) const {
+		switch (sex) {
+			case Sex::Male: return "Male";
+			case Sex::Female: return "Female";
+			default: throw std::invalid_argument("Invalid value for Sex");
+		}
+	}
+
+	std::string Employee::convertPositionCodeToString(PositionCode positionCode) const {
+		switch (positionCode) {
+			case PositionCode::Librarian: return "Librarian";
+			case PositionCode::Cataloger: return "Cataloger";
+			case PositionCode::Archivist: return "Archivist";
+			default: throw std::invalid_argument("Invalid value for PositionCode");
+		}
+	}
+
 	void Employee::to_json(json& j) const {
 		j = {
 			{"mFirstName", mFirstName},
@@ -190,29 +234,36 @@ namespace Records {
 			{"fathersName", fathersName},
 			{"mEmployeeCode", mEmployeeCode},
 			{"age", age},
-			{"sex", sex},
+			{"sex", convertSexToString(sex)},
 			{"address", address},
 			{"passportNumber", passportNumber},
-			{"positionCode", positionCode},
+			{"positionCode", convertPositionCodeToString(positionCode)},
 			{"mEmployeeNumber", mEmployeeNumber},
 			{"mSalary", mSalary},
 			{"fHired", fHired}
 		};
 	}
 
-	
-	void Employee::from_json(const json& j) {
-		mFirstName = j.at("mFirstName").get<std::string>();
-		mLastName = j.at("mLastName").get<std::string>();
-		fathersName = j.at("fathersName").get<std::string>();
-		mEmployeeCode = j.at("mEmployeeCode").get<int>();
-		age = j.at("age").get<int>();
-		sex = j.at("sex").get<Sex>();
-		address = j.at("address").get<std::string>();
-		passportNumber = j.at("passportNumber").get<int>();
-		positionCode = j.at("positionCode").get<PositionCode>();
-		mEmployeeNumber = j.at("mEmployeeNumber").get<int>();
-		mSalary = j.at("mSalary").get<int>();
-		fHired = j.at("fHired").get<bool>();
+
+	void Employee::from_json(const json& j, Employee& emp) {
+		try {
+			emp.mFirstName = j.at("mFirstName").get<std::string>();
+			emp.mLastName = j.at("mLastName").get<std::string>();
+			emp.fathersName = j.at("fathersName").get<std::string>();
+			emp.mEmployeeCode = j.at("mEmployeeCode").get<int>();
+			emp.age = j.at("age").get<int>();
+			//emp.sex = j.at("sex").get<Sex>();
+			emp.setSex(convertStringToSex(j.at("sex").get<std::string>()));
+			emp.address = j.at("address").get<std::string>();
+			emp.passportNumber = j.at("passportNumber").get<int>();
+			//emp.positionCode = j.at("positionCode").get<PositionCode>();
+			emp.setPositionCode(convertStringToPositionCode(j.at("positionCode").get<std::string>()));
+			emp.mEmployeeNumber = j.at("mEmployeeNumber").get<int>();
+			emp.mSalary = j.at("mSalary").get<int>();
+			emp.fHired = j.at("fHired").get<bool>();
+		}
+		catch (const nlohmann::json::exception& e) {
+			std::cerr << "Error parsing JSON for Employee: " << e.what() << std::endl;
+		}
 	}
 }

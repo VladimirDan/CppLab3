@@ -1,0 +1,30 @@
+[
+    {
+        "address": "123 Main St, City",
+        "age": 30,
+        "fHired": true,
+        "fathersName": "Smith",
+        "mEmployeeCode": 123,
+        "mEmployeeNumber": 1,
+        "mFirstName": "John",
+        "mLastName": "Doe",
+        "mSalary": 50000,
+        "passportNumber": 12345,
+        "positionCode": "Librarian",
+        "sex": "Male"
+    },
+    {
+        "address": "1",
+        "age": 1,
+        "fHired": true,
+        "fathersName": "1",
+        "mEmployeeCode": 1,
+        "mEmployeeNumber": -1,
+        "mFirstName": "1",
+        "mLastName": "1",
+        "mSalary": 200,
+        "passportNumber": 1,
+        "positionCode": "Cataloger",
+        "sex": "Female"
+    }
+]

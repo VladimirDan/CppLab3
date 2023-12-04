@@ -1,3 +1,5 @@
+#pragma once
+
 #include <iostream>
 #include "Employee.h"
 #include <string>
